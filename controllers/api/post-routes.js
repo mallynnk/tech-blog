@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     Post.findAll({
         attributes: [
             'id',
-            'post_url',
+            'post_text',
             'title',
             'created_at',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
@@ -46,7 +46,7 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
-            'post_url',
+            'post_text',
             'title',
             'created_at',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
@@ -84,10 +84,15 @@ router.post('/', withAuth, (req, res) => {
     // expects json info back
     Post.create({
         title: req.body.title,
-        post_url: req.body.post_url,
+        post_text: req.body.post_text,
         user_id: req.session.user_id
       })
-})
+      .then(dbPostData => res.json(dbPostData))
+      .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+      });
+});
 
 //upvote
 router.put('/upvote', withAuth, (req, res) => {
@@ -105,7 +110,7 @@ router.put('/upvote', withAuth, (req, res) => {
 
 
 //create put route
-router.put('/:id', withAuth, (req, res) => {
+router.put('/:id', (req, res) => {
     Post.update(
         {
             title: req.body.title // finding the post with req.body.title and replace the title of the post
@@ -132,7 +137,8 @@ router.put('/:id', withAuth, (req, res) => {
 router.delete('/:id', withAuth, (req, res) => {
     Post.destroy({
         where: {
-            id: req.params.id
+            id: req.params.id,
+            user_id: req.session.user_id
         }
     })
         .then(dbPostData => {
