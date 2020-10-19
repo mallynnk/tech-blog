@@ -42,7 +42,7 @@ Post.init(
         allowNull: false
       },
       post_text: {
-        type: DataTypes.TEXT('long'),
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notEmpty: true
