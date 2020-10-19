@@ -122,12 +122,12 @@ router.put('/:id', (req, res) => {
             }
         }
     )
-        .then(dbUserData => {
-            if (!dbUserData[0]) {
-                res.status(404).json({ message: 'No user found with this id' });
+        .then(dbPostrData => {
+            if (!dbPostData[0]) {
+                res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
-            res.json(dbUserData);
+            res.json(dbPostrData);
         })
         .catch(err => {
             console.log(err);
