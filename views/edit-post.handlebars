@@ -3,10 +3,20 @@
   <h2>
     Edit Post
   </h2>
-  <form class="edit-post-form">
+  <form class="card edit-post-form">
+     <div>
+                    Blog Post Title
+                    <br/>
+                    <input name="post-title" type="text" value="{{post.title}}" />
+                    <br/>
+                    <br/>
+                    Post Text
+                    <br/>
+                    <textarea name="post-text" style="width: 80%; height: 100px">Enter Text Here</textarea>
+          </div>
     <div>
-      <input name="post-title" type="text" value="{{post.title}}" />
-      <span>({{format_url post.post_text}})</span>
+
+      {{!-- <span>({{format_url post.post_text}})</span> --}}
     </div>
     <div>
       {{post.vote_count}} {{format_plural "Like" post.vote_count}} by you on {{format_date post.created_at}}

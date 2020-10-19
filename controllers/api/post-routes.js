@@ -80,7 +80,7 @@ router.get('/:id', (req, res) => {
 });
 
 // create a post route
-router.post('/', withAuth, (req, res) => {
+router.post('/', (req, res) => {
     // expects json info back
     Post.create({
         title: req.body.title,
@@ -113,7 +113,8 @@ router.put('/upvote', withAuth, (req, res) => {
 router.put('/:id', (req, res) => {
     Post.update(
         {
-            title: req.body.title // finding the post with req.body.title and replace the title of the post
+            title: req.body.title, // finding the post with req.body.title and replace the title of the post
+            post_text: req.body.post_text
         },
         {
             where: {
@@ -134,11 +135,10 @@ router.put('/:id', (req, res) => {
         });
 });
 // create delete/destroy route
-router.delete('/:id', withAuth, (req, res) => {
+router.delete('/:id', (req, res) => {
     Post.destroy({
         where: {
             id: req.params.id,
-            user_id: req.session.user_id
         }
     })
         .then(dbPostData => {
