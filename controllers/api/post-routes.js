@@ -67,6 +67,7 @@ router.get('/:id', (req, res) => {
         ]
     })
         .then(dbPostData => { // return the promise
+            console.log(dbPostData)
             if (!dbPostData) {
                 res.status(404).json({ message: 'No post found with this id' }); // 404 is user error
                 return;
@@ -122,18 +123,19 @@ router.put('/:id', (req, res) => {
             }
         }
     )
-        .then(dbPostrData => {
+        .then(dbPostData => {
             if (!dbPostData[0]) {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
-            res.json(dbPostrData);
+            res.json(dbPostData);
         })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
+
 // create delete/destroy route
 router.delete('/:id', (req, res) => {
     Post.destroy({
