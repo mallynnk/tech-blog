@@ -28,6 +28,11 @@ When the user enters a comment and clicks on the submit button while signed in, 
 
 ## Screenshots
 
+![Screenshot](public/img/scrn1.png)
+![Screenshot](public/img/scrn2.png)
+![Screenshot](public/img/scrn3.png)
+
+
 ## Deployed Application
 
 ## Installation
